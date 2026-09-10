@@ -1,0 +1,8 @@
+export { default as Opening } from './Opening'
+export { default as AboutHer } from './AboutHer'
+export { default as PhotoGalleryAyu } from './PhotoGalleryAyu'
+export { default as OurStory } from './OurStory'
+export { default as PhotoGalleryTogether } from './PhotoGalleryTogether'
+export { default as ThankYou } from './ThankYou'
+export { default as FinalMemoryGallery } from './FinalMemoryGallery'
+export { default as Closing } from './Closing'
