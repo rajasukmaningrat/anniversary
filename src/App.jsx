@@ -14,7 +14,6 @@ function App() {
   const [phase, setPhase] = useState(PHASE.ENVELOPE)
 
   const handleOpenEnvelope = () => setPhase(PHASE.CONTENT)
-  const handleReachClosing = () => setPhase(PHASE.CLOSING)
   const handleReopenEnvelope = () => setPhase(PHASE.ENVELOPE)
 
   if (phase === PHASE.ENVELOPE) {
@@ -22,7 +21,7 @@ function App() {
   }
 
   if (phase === PHASE.CONTENT) {
-    return <ContentView onReachClosing={handleReachClosing} />
+    return <ContentView onReopen={handleReopenEnvelope} />
   }
 
   if (phase === PHASE.CLOSING) {

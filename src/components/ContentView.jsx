@@ -10,7 +10,7 @@ import {
   Closing,
 } from './sections'
 
-function ContentView({ onReachClosing }) {
+function ContentView({ onReopen }) {
   return (
     <div className="view view--content">
       <div className="content-tulips" aria-hidden="true">
@@ -28,7 +28,7 @@ function ContentView({ onReachClosing }) {
       <PhotoGalleryTogether />
       <ThankYou />
       <FinalMemoryGallery />
-      <Closing onReachClosing={onReachClosing} />
+      <Closing onReopen={onReopen} />
     </div>
   )
 }
