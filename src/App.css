@@ -35,7 +35,6 @@
 }
 
 /* Buttons */
-.btn-open-envelope,
 .btn-close-envelope,
 .btn-reopen-envelope {
   margin-top: var(--space-md);
@@ -49,8 +48,175 @@
   transition: background-color var(--transition-fast);
 }
 
-.btn-open-envelope:hover,
 .btn-close-envelope:hover,
 .btn-reopen-envelope:hover {
   background-color: var(--color-primary-dark);
+}
+
+/* Envelope stage */
+.envelope-stage {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+.envelope-eyebrow {
+  margin-bottom: var(--space-xs);
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 4vw, 1.25rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary-dark);
+}
+
+.envelope-title {
+  margin-bottom: var(--space-md);
+  font-size: clamp(1.6rem, 6vw, 2.2rem);
+  color: var(--color-text);
+}
+
+.envelope-btn {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.envelope-btn:disabled {
+  cursor: default;
+}
+
+.envelope-btn:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+.envelope {
+  --env-w: min(300px, 82vw);
+  position: relative;
+  width: var(--env-w);
+  aspect-ratio: 3 / 2;
+  perspective: 1200px;
+}
+
+.envelope__pocket {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.envelope__flap {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: linear-gradient(200deg, #fbc6d6 0%, var(--color-primary) 100%);
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  transform-origin: top center;
+  transition: transform var(--transition-slow);
+}
+
+.envelope__card {
+  position: absolute;
+  top: 6%;
+  right: 6%;
+  bottom: 6%;
+  left: 6%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(0.75rem, 4vw, 1.25rem);
+  background:
+    radial-gradient(circle at 50% 18%, var(--color-primary-light) 0 26%, transparent 27%),
+    linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  transform: translateY(0);
+  transition: transform var(--transition-slow);
+}
+
+.envelope__heart {
+  font-size: clamp(1.25rem, 6vw, 1.75rem);
+  color: var(--color-primary-dark);
+  line-height: 1;
+}
+
+.envelope__card-line {
+  width: 62%;
+  height: 1px;
+  margin-top: clamp(0.5rem, 3vw, 0.9rem);
+  background: var(--color-border);
+}
+
+.envelope__heart,
+.envelope__card-line {
+  opacity: 0.85;
+}
+
+.envelope__card-line--short {
+  width: 40%;
+  margin-top: 0.5rem;
+}
+
+.envelope__seal {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  z-index: 5;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffe9d2, var(--color-accent) 58%, #c48b5e);
+  box-shadow: 0 2px 6px rgba(74, 53, 64, 0.25);
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.envelope--open .envelope__flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.envelope--open .envelope__card {
+  transform: translateY(-25%);
+}
+
+.envelope--open .envelope__seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.envelope-hint {
+  margin-top: var(--space-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--color-text-light);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .envelope-btn:not(:disabled) .envelope {
+    transition: transform var(--transition-fast), filter var(--transition-fast);
+  }
+
+  .envelope-btn:not(:disabled):hover .envelope {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 6px 12px rgba(232, 145, 159, 0.45));
+  }
+
+  .envelope-btn:not(:disabled):active .envelope {
+    transform: translateY(1px) scale(0.99);
+  }
 }
