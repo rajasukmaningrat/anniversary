@@ -10,7 +10,7 @@
   --color-primary: #f8b4c8;
   --color-primary-dark: #e8919f;
   --color-primary-light: #fde4ec;
-  --color-secondary: #fdf2f8;
+  --color-secondary: #fef6ef;
   --color-bg: #fffbf7;
   --color-bg-alt: #fff5f0;
   --color-text: #4a3540;
@@ -19,6 +19,16 @@
   --color-accent-light: #f0dcc8;
   --color-white: #ffffff;
   --color-border: #f0d6de;
+
+  /* Envelope view palette - warm cream & rose */
+  --color-cream: #fbf1e6;
+  --color-ivory: #fff8f0;
+  --color-rose: #b5637c;
+  --color-rose-deep: #9a4660;
+  --color-pink-paper: #f2a0b5;
+  --color-pink-paper-deep: #da86a0;
+  --color-gold: #d8a768;
+  --color-leaf: #79a05b;
 
   /* Typography */
   --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
