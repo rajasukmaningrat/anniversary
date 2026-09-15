@@ -1,19 +1,17 @@
 import { ChevronLeft } from 'lucide-react'
-import Navigation from './Navigation'
-import { Opening, Music, AboutHer, Memories, KataKata, Close } from './sections'
+import { Home, Music, AboutHer, Memories, KataKata } from './sections'
 import { SCREENS } from '../screens'
 
 const SCREEN_COMPONENTS = {
-  [SCREENS.HOME]: Opening,
+  [SCREENS.HOME]: Home,
   [SCREENS.MUSIC]: Music,
   [SCREENS.ABOUT]: AboutHer,
   [SCREENS.MEMORIES]: Memories,
   [SCREENS.KATA]: KataKata,
-  [SCREENS.CLOSE]: Close,
 }
 
 function ContentView({ screen = SCREENS.HOME, onNavigate, onReopen }) {
-  const Screen = SCREEN_COMPONENTS[screen] || Opening
+  const Screen = SCREEN_COMPONENTS[screen] || Home
 
   return (
     <div className="view view--app">
@@ -25,7 +23,8 @@ function ContentView({ screen = SCREENS.HOME, onNavigate, onReopen }) {
             onClick={() => onNavigate(SCREENS.HOME)}
             aria-label="Kembali ke Home"
           >
-            <ChevronLeft size={20} strokeWidth={2.2} aria-hidden="true" />
+            <ChevronLeft size={18} strokeWidth={2.2} aria-hidden="true" />
+            <span>Kembali</span>
           </button>
         )}
         <span className="app-header__name">cayang</span>
@@ -35,7 +34,6 @@ function ContentView({ screen = SCREENS.HOME, onNavigate, onReopen }) {
           <Screen onReopen={onReopen} onNavigate={onNavigate} />
         </div>
       </main>
-      <Navigation active={screen} onNavigate={onNavigate} />
     </div>
   )
 }

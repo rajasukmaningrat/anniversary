@@ -37,7 +37,7 @@ const MENU = [
   },
 ]
 
-function Opening({ onNavigate }) {
+function Home({ onReopen, onNavigate }) {
   return (
     <section className="app-screen screen--home">
       <div className="screen-home__tulips" aria-hidden="true">
@@ -99,8 +99,8 @@ function Opening({ onNavigate }) {
       <button
         type="button"
         className="screen-home__close"
-        onClick={() => onNavigate(SCREENS.CLOSE)}
-        aria-label="Tutup aplikasi"
+        onClick={onReopen}
+        aria-label="Tutup aplikasi dan kembali ke amplop"
       >
         <Mail size={16} strokeWidth={2.2} aria-hidden="true" />
         Tutup dan kembali ke amplop
@@ -109,4 +109,4 @@ function Opening({ onNavigate }) {
   )
 }
 
-export default Opening
+export default Home

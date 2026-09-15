@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import MediaPhoto from '../MediaPhoto'
 import Tulip from '../Tulip'
-import { MEMORIES_IMAGES } from 'virtual:cayang-media'
+import { MEMORIES_IMAGES, TOGETHER_IMAGES } from 'virtual:cayang-media'
 
 const MEMORY_VIDEOS = [
   { src: '/videos/vidio-01.mp4', caption: 'sebuah kenangan' },
@@ -15,7 +15,7 @@ function MemoryVideo({ media }) {
 
   if (failed) {
     return (
-      <figure className="screen-memory__tile screen-memory__tile--video">
+      <figure className="screen-memory__tile screen-memory__tile--video screen-memory__tile--tilt-right">
         <div
           className="screen-memory__fallback"
           role="img"
@@ -32,7 +32,7 @@ function MemoryVideo({ media }) {
 
   return (
     <figure
-      className="screen-memory__tile screen-memory__tile--video"
+      className="screen-memory__tile screen-memory__tile--video screen-memory__tile--tilt-left"
       style={ratio ? { aspectRatio: `${ratio.w} / ${ratio.h}` } : undefined}
     >
       <video
@@ -78,12 +78,25 @@ function Memories() {
         {MEMORIES_IMAGES.map((src, index) => (
           <figure
             key={src}
-            className={`screen-memory__tile screen-memory__tile--photo screen-memory__tile--p${index % 3}`}
+            className={`screen-memory__tile screen-memory__tile--photo screen-memory__tile--t${index % 3}`}
           >
             <MediaPhoto
               className="screen-memory__img"
               src={src}
               alt="Kenangan bersama Ayu"
+              mark="♡"
+            />
+          </figure>
+        ))}
+        {TOGETHER_IMAGES.map((src, index) => (
+          <figure
+            key={src}
+            className={`screen-memory__tile screen-memory__tile--photo screen-memory__tile--t${(index + 1) % 3}`}
+          >
+            <MediaPhoto
+              className="screen-memory__img"
+              src={src}
+              alt="Foto bersama Ayu"
               mark="♡"
             />
           </figure>

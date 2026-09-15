@@ -1,7 +1,5 @@
-export { default as Opening } from './Opening'
+export { default as Home } from './Home'
 export { default as Music } from './Music'
 export { default as AboutHer } from './AboutHer'
-export { default as OurStory } from './OurStory'
 export { default as Memories } from './Memories'
 export { default as KataKata } from './KataKata'
-export { default as Close } from './Close'

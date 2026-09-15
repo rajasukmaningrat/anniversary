@@ -1,10 +1,19 @@
-import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
+import { Pause, Play, Repeat, Volume2, VolumeX } from 'lucide-react'
 import { useMusic } from '../../musicContext'
 import Tulip from '../Tulip'
 
 function Music() {
-  const { title, artist, playing, muted, unavailable, togglePlay, toggleMute } =
-    useMusic()
+  const {
+    title,
+    artist,
+    playing,
+    muted,
+    looping,
+    unavailable,
+    togglePlay,
+    toggleMute,
+    toggleLoop,
+  } = useMusic()
 
   if (unavailable) {
     return (
@@ -67,9 +76,20 @@ function Music() {
             <Volume2 size={22} strokeWidth={2.2} aria-hidden="true" />
           )}
         </button>
+        <button
+          type="button"
+          className={`screen-music__btn screen-music__btn--loop${looping ? ' screen-music__btn--loop-on' : ''}`}
+          onClick={toggleLoop}
+          aria-label={looping ? 'Ulangi lagu (aktif)' : 'Ulangi lagu (nonaktif)'}
+          aria-pressed={looping}
+        >
+          <Repeat size={22} strokeWidth={2.2} aria-hidden="true" />
+        </button>
       </div>
 
-      <p className="screen-music__note">menemani cerita kita</p>
+      <p className="screen-music__note">
+        {playing ? 'menemani cerita kita' : 'putar untuk menemani cerita kita'}
+      </p>
     </section>
   )
 }

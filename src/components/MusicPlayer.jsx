@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
 import { MusicContext, useMusic } from '../musicContext'
 
@@ -7,161 +7,132 @@ const MUSIC_SOURCES = [
   '/music/Tulus_-_Jatuh_Suka_(mp3.pm).mp3',
 ]
 const MUSIC_VOLUME = 0.3
-const STOP_FADE_MS = 600
 const MUSIC_TITLE = 'Jatuh Suka'
 const MUSIC_ARTIST = 'Tulus'
 
 function MusicPlayer({ active, children }) {
-  const audioRef = useRef(null)
+  const videoRef = useRef(null)
   const sourceIndexRef = useRef(0)
-  const mutedRef = useRef(false)
-  const fadeTimerRef = useRef(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [isMuted, setIsMuted] = useState(false)
+  const wasPlayingRef = useRef(false)
+  const [playing, setPlaying] = useState(false)
+  const [muted, setMuted] = useState(false)
+  const [looping, setLooping] = useState(true)
   const [unavailable, setUnavailable] = useState(false)
 
-  const handlePlaybackError = useCallback(() => {
-    const audio = audioRef.current
-    if (!audio) return
+  const applyMediaSettings = useCallback(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.loop = looping
+    video.volume = MUSIC_VOLUME
+    video.muted = muted
+  }, [looping, muted])
 
+  const handleError = useCallback(() => {
     const nextIndex = sourceIndexRef.current + 1
+    const video = videoRef.current
+    if (!video) return
+
     if (nextIndex < MUSIC_SOURCES.length) {
       sourceIndexRef.current = nextIndex
-      audio.src = MUSIC_SOURCES[nextIndex]
-      audio
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => setIsPlaying(false))
-      return
-    }
-
-    setIsPlaying(false)
-    setUnavailable(true)
-  }, [])
-
-  const getAudio = useCallback(() => {
-    if (!audioRef.current) {
-      const audio = new Audio()
-      audio.loop = true
-      audio.preload = 'none'
-      audio.volume = MUSIC_VOLUME
-      audio.muted = mutedRef.current
-      audio.addEventListener('error', handlePlaybackError)
-      audioRef.current = audio
-    }
-    return audioRef.current
-  }, [handlePlaybackError])
-
-  const start = useCallback(() => {
-    if (unavailable) return
-
-    const audio = getAudio()
-    if (!audio) return
-
-    if (!audio.src) {
-      sourceIndexRef.current = 0
-      audio.src = MUSIC_SOURCES[0]
-    }
-
-    audio.loop = true
-    audio.volume = MUSIC_VOLUME
-    audio.muted = mutedRef.current
-
-    setIsPlaying(true)
-    audio.play().catch(() => setIsPlaying(false))
-  }, [getAudio, unavailable])
-
-  const stop = useCallback(() => {
-    const audio = audioRef.current
-    if (!audio || audio.paused) {
-      setIsPlaying(false)
-      return
-    }
-
-    clearTimeout(fadeTimerRef.current)
-    const startVolume = audio.volume
-    const steps = 8
-    let stepIndex = 0
-
-    const fadeStep = () => {
-      stepIndex += 1
-      audio.volume = startVolume * (1 - stepIndex / steps)
-
-      if (stepIndex < steps) {
-        fadeTimerRef.current = setTimeout(fadeStep, STOP_FADE_MS / steps)
-        return
+      video.src = MUSIC_SOURCES[nextIndex]
+      if (wasPlayingRef.current) {
+        applyMediaSettings()
+        video.play().catch(() => {
+          wasPlayingRef.current = false
+          setPlaying(false)
+        })
       }
-
-      audio.pause()
-      audio.currentTime = 0
-      audio.volume = MUSIC_VOLUME
-      setIsPlaying(false)
+      return
     }
 
-    fadeStep()
-  }, [])
+    wasPlayingRef.current = false
+    setUnavailable(true)
+    setPlaying(false)
+  }, [applyMediaSettings])
 
   const togglePlay = useCallback(() => {
-    const audio = getAudio()
-    if (!audio) return
+    if (unavailable) return
+    const video = videoRef.current
+    if (!video) return
 
-    if (audio.paused) {
-      if (!audio.src) {
-        sourceIndexRef.current = 0
-        audio.src = MUSIC_SOURCES[0]
-      }
-      audio.muted = mutedRef.current
-      audio.volume = MUSIC_VOLUME
-      setIsPlaying(true)
-      audio.play().catch(() => setIsPlaying(false))
-      return
+    if (!video.src) {
+      sourceIndexRef.current = 0
+      video.src = MUSIC_SOURCES[0]
     }
 
-    audio.pause()
-    setIsPlaying(false)
-  }, [getAudio])
+    applyMediaSettings()
 
-  const toggleMute = useCallback(() => {
-    mutedRef.current = !mutedRef.current
-    const audio = audioRef.current
-    if (audio) audio.muted = mutedRef.current
-    setIsMuted(mutedRef.current)
+    if (video.paused) {
+      const promise = video.play()
+      wasPlayingRef.current = true
+      setPlaying(true)
+      if (promise && typeof promise.catch === 'function') {
+        promise.catch(() => {
+          wasPlayingRef.current = false
+          setPlaying(false)
+        })
+      }
+    } else {
+      video.pause()
+      wasPlayingRef.current = false
+      setPlaying(false)
+    }
+  }, [applyMediaSettings, unavailable])
+
+  const toggleMute = useCallback(() => setMuted((prev) => !prev), [])
+  const toggleLoop = useCallback(() => setLooping((prev) => !prev), [])
+
+  useEffect(() => {
+    applyMediaSettings()
+  }, [applyMediaSettings])
+
+  useEffect(() => {
+    if (active) return
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    video.currentTime = 0
+    wasPlayingRef.current = false
+    setPlaying(false)
+  }, [active])
+
+  useEffect(() => {
+    const video = videoRef.current
+    return () => {
+      if (video) {
+        video.pause()
+        video.removeAttribute('src')
+        video.load()
+      }
+    }
   }, [])
 
-  useEffect(() => {
-    if (!active) {
-      stop()
-      return
-    }
-
-    const audio = audioRef.current
-    if (audio && !audio.paused) return
-    start()
-  }, [active, start, stop])
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(fadeTimerRef.current)
-      const audio = audioRef.current
-      if (audio) {
-        audio.pause()
-        audio.removeEventListener('error', handlePlaybackError)
-      }
-    }
-  }, [handlePlaybackError])
-
-  const value = {
+  const value = useMemo(() => ({
     title: MUSIC_TITLE,
     artist: MUSIC_ARTIST,
-    playing: isPlaying,
-    muted: isMuted,
+    playing,
+    muted,
+    looping,
     unavailable,
     togglePlay,
     toggleMute,
-  }
+    toggleLoop,
+  }), [playing, muted, looping, unavailable, togglePlay, toggleMute, toggleLoop])
 
   return (
     <MusicContext.Provider value={value}>
+      <video
+        ref={videoRef}
+        className="app-music-media"
+        preload="none"
+        playsInline
+        muted={muted}
+        loop={looping}
+        aria-hidden="true"
+        tabIndex={-1}
+        onError={handleError}
+        onEnded={() => setPlaying(false)}
+      />
       {children}
       {active && !unavailable ? <MiniMusicControls /> : null}
     </MusicContext.Provider>
