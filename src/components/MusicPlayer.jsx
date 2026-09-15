@@ -3,12 +3,11 @@ import { Pause, Play, Volume2, VolumeX } from 'lucide-react'
 import { MusicContext, useMusic } from '../musicContext'
 
 const MUSIC_SOURCES = [
-  '/music/TULUS%20-%20Jatuh%20Suka%20(Official%20Lyric%20Video).mp4',
-  '/music/Tulus_-_Jatuh_Suka_(mp3.pm).mp3',
+  '/music/The%201975%20-%20About%20You%20(Official).mp3',
 ]
 const MUSIC_VOLUME = 0.3
-const MUSIC_TITLE = 'Jatuh Suka'
-const MUSIC_ARTIST = 'Tulus'
+const MUSIC_TITLE = 'About You'
+const MUSIC_ARTIST = 'The 1975'
 
 function MusicPlayer({ active, children }) {
   const videoRef = useRef(null)
