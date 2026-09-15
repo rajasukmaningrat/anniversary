@@ -1,45 +1,110 @@
+import {
+  Camera,
+  ChevronRight,
+  Heart,
+  Mail,
+  MessageCircle,
+  Music,
+} from 'lucide-react'
+import MediaPhoto from '../MediaPhoto'
 import Tulip from '../Tulip'
-import ScrollReveal from '../ScrollReveal'
+import { SCREENS } from '../../screens'
 
-function Opening() {
+const MENU = [
+  {
+    id: SCREENS.ABOUT,
+    label: 'About Her',
+    caption: 'semua tentang Ayu',
+    icon: Heart,
+  },
+  {
+    id: SCREENS.MUSIC,
+    label: 'Music',
+    caption: 'lagu untuk kita',
+    icon: Music,
+  },
+  {
+    id: SCREENS.MEMORIES,
+    label: 'Memories',
+    caption: 'foto dan video kita',
+    icon: Camera,
+  },
+  {
+    id: SCREENS.KATA,
+    label: 'Kata-kata',
+    caption: 'pesan untukmu',
+    icon: MessageCircle,
+  },
+]
+
+function Opening({ onNavigate }) {
   return (
-    <section className="content-section content-section--opening">
-      <div className="opening-tulips" aria-hidden="true">
-        <div className="opening-tulips__group opening-tulips__group--bl">
-          <Tulip variant="sm" tilt="left" className="opening-tulips__t1" />
-          <Tulip variant="xs" flip tilt="right" className="opening-tulips__t2" />
-        </div>
-        <div className="opening-tulips__group opening-tulips__group--br">
-          <Tulip variant="sm" flip tilt="right" className="opening-tulips__t1" />
-          <Tulip variant="xs" tilt="left" className="opening-tulips__t2" />
-        </div>
+    <section className="app-screen screen--home">
+      <div className="screen-home__tulips" aria-hidden="true">
+        <Tulip variant="sm" tilt="left" className="screen-home__tulip screen-home__tulip--bl" />
+        <Tulip variant="sm" flip tilt="right" className="screen-home__tulip screen-home__tulip--br" />
       </div>
-      <div className="container">
-        <ScrollReveal>
-          <span className="opening-label">Untuk kamu</span>
-        </ScrollReveal>
-        <ScrollReveal delay={100}>
-          <h2 className="opening-heading">
-            Setahun yang lalu, kita memulai sesuatu yang sampai sekarang masih
-            ingin aku syukuri.
-          </h2>
-        </ScrollReveal>
-        <ScrollReveal delay={200}>
-          <p className="opening-body">
-            Aku nggak tahu harus mulai dari mana, tapi yang jelas, hari-hari
-            yang kita lewati bareng ini selalu bikin aku ngerasa bersyukur.
-            Aku bersyukur kamu ada di sini, di setiap langkah kecil yang kita
-            jalani.
-          </p>
-        </ScrollReveal>
-        <ScrollReveal delay={300}>
-          <p className="opening-transition">
-            Dan sebelum bercerita tentang kita,
-            <br />
-            aku ingin bercerita sedikit tentang kamu.
-          </p>
-        </ScrollReveal>
+
+      <div className="screen-home">
+        <p className="screen-home__eyebrow">Ayu</p>
+
+        <div className="screen-home__photo-wrap">
+          <MediaPhoto
+            className="screen-home__photo"
+            src="/images/ayu/ayu-opening.jpg"
+            alt="Foto Syarifah Ayu Bilqis"
+            mark="A"
+          />
+          <span className="screen-home__photo-stamp" aria-hidden="true">
+            &hearts;
+          </span>
+        </div>
+
+        <h1 className="screen-home__title">Happy Anniversary</h1>
+        <p className="screen-home__subtitle">1 Tahun Bersama</p>
+        <p className="screen-home__message">
+          Setahun berlalu, dan aku masih memilih kamu di setiap harinya.
+        </p>
       </div>
+
+      <nav className="screen-home__menu" aria-label="Menu aplikasi perayaan">
+        {MENU.map((item) => {
+          const Icon = item.icon
+          return (
+            <button
+              key={item.id}
+              type="button"
+              className="screen-home__menu-item"
+              onClick={() => onNavigate(item.id)}
+              aria-label={item.label}
+            >
+              <span className="screen-home__menu-icon" aria-hidden="true">
+                <Icon size={20} strokeWidth={2.2} />
+              </span>
+              <span className="screen-home__menu-body">
+                <span className="screen-home__menu-label">{item.label}</span>
+                <span className="screen-home__menu-caption">{item.caption}</span>
+              </span>
+              <ChevronRight
+                className="screen-home__menu-chev"
+                size={18}
+                strokeWidth={2.2}
+                aria-hidden="true"
+              />
+            </button>
+          )
+        })}
+      </nav>
+
+      <button
+        type="button"
+        className="screen-home__close"
+        onClick={() => onNavigate(SCREENS.CLOSE)}
+        aria-label="Tutup aplikasi"
+      >
+        <Mail size={16} strokeWidth={2.2} aria-hidden="true" />
+        Tutup dan kembali ke amplop
+      </button>
     </section>
   )
 }

@@ -1,34 +1,41 @@
-import Tulip from './Tulip'
-import {
-  Opening,
-  AboutHer,
-  PhotoGalleryAyu,
-  OurStory,
-  PhotoGalleryTogether,
-  ThankYou,
-  FinalMemoryGallery,
-  Closing,
-} from './sections'
+import { ChevronLeft } from 'lucide-react'
+import Navigation from './Navigation'
+import { Opening, Music, AboutHer, Memories, KataKata, Close } from './sections'
+import { SCREENS } from '../screens'
 
-function ContentView({ onReopen }) {
+const SCREEN_COMPONENTS = {
+  [SCREENS.HOME]: Opening,
+  [SCREENS.MUSIC]: Music,
+  [SCREENS.ABOUT]: AboutHer,
+  [SCREENS.MEMORIES]: Memories,
+  [SCREENS.KATA]: KataKata,
+  [SCREENS.CLOSE]: Close,
+}
+
+function ContentView({ screen = SCREENS.HOME, onNavigate, onReopen }) {
+  const Screen = SCREEN_COMPONENTS[screen] || Opening
+
   return (
-    <div className="view view--content">
-      <div className="content-tulips" aria-hidden="true">
-        <Tulip variant="xs" tilt="right" className="content-tulips__tl" />
-        <Tulip variant="xs" flip className="content-tulips__tr" />
-        <Tulip variant="xs" flip className="content-tulips__ml" />
-        <Tulip variant="xs" className="content-tulips__mr" />
-        <Tulip variant="xs" className="content-tulips__bl" />
-        <Tulip variant="xs" flip className="content-tulips__br" />
-      </div>
-      <Opening />
-      <AboutHer />
-      <PhotoGalleryAyu />
-      <OurStory />
-      <PhotoGalleryTogether />
-      <ThankYou />
-      <FinalMemoryGallery />
-      <Closing onReopen={onReopen} />
+    <div className="view view--app">
+      <header className="app-header">
+        {screen !== SCREENS.HOME && (
+          <button
+            type="button"
+            className="app-header__back"
+            onClick={() => onNavigate(SCREENS.HOME)}
+            aria-label="Kembali ke Home"
+          >
+            <ChevronLeft size={20} strokeWidth={2.2} aria-hidden="true" />
+          </button>
+        )}
+        <span className="app-header__name">cayang</span>
+      </header>
+      <main className="app-main">
+        <div className="app-screen-wrap" key={screen}>
+          <Screen onReopen={onReopen} onNavigate={onNavigate} />
+        </div>
+      </main>
+      <Navigation active={screen} onNavigate={onNavigate} />
     </div>
   )
 }
