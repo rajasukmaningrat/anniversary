@@ -1,10 +1,6 @@
 /* ===== Base ===== */
 html,
 body {
-  overflow-x: hidden;
-}
-
-body {
   overscroll-behavior-y: none;
 }
 
