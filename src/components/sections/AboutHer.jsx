@@ -4,9 +4,10 @@ import { AYU_IMAGES } from 'virtual:cayang-media'
 
 const FACTS = [
   { label: 'suka pink' },
-  { label: 'suka tulip' },
-  { label: 'suka chocolate' },
-  { label: 'kadang princess' },
+  { label: 'suka malah-malah' },
+  { label: 'suka mam jajan' },
+  { label: 'SUKA ECIM' },
+  { label: 'SUKA TIBA TIBA BINTITAN HHAHAHAHAHAHAAH'}
 ]
 
 function AboutHer() {
@@ -19,7 +20,7 @@ function AboutHer() {
 
       <span className="screen-label">About Her</span>
       <h2 className="screen-about__name">Syarifah Ayu Bilqis</h2>
-      <p className="screen-about__nicknames">Cayang · Cantik · Cinta · Ayy</p>
+      <p className="screen-about__nicknames"> · Plincess · Cicis · </p>
 
       <div className="screen-about__facts" aria-label="Hal yang dia suka">
         {FACTS.map((fact) => (
@@ -32,15 +33,20 @@ function AboutHer() {
       <div className="screen-about__text">
         <p className="screen-about__p">
           Teman sejak kecil. Dari luar dia terlihat kuat dan berani,
-          tapi sebenarnya sangat lembut.
+          Seorang Anak perempuan yang cantik yang aku temui bukan dari sebuah kebetulan tapi dari sebuah keberanian CIAH BERANI GAK TU 
+          Ya bayangin aja gess seorang syarifah ayu bilqis dia cantik pinter berkarisma dan CUEK dapet saya gess bocah yang masih bingung 
+          dengan dirinya 
+          kalau aku mau mendefinisasikan dia yaa DIA PACALKU hehehehehe
         </p>
         <p className="screen-about__p">
           Buatku dia bukan cuma kekasih — juga teman, supporter pertama,
           dan sosok yang selalu ada.
+          Bahkan selalu menjadi yang pertama ketika aku lagi down yapp dia yang sellau ada
+          SABARR SABARR KATA KATA SERIUSNYA NANTII SABAR YAAKK 
         </p>
       </div>
 
-      <h3 className="screen-about__gallery-title">potret Ayu</h3>
+      <h3 className="screen-about__gallery-title">Potret Bos Salipah</h3>
       <div className="gallery" aria-label="Galeri foto Ayu">
         {AYU_IMAGES.map((src, index) => (
           <figure

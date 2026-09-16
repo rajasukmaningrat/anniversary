@@ -14,25 +14,25 @@ const MENU = [
   {
     id: SCREENS.ABOUT,
     label: 'About Her',
-    caption: 'semua tentang Ayu',
+    caption: 'siapah sih cicis ni?',
     icon: Heart,
   },
   {
     id: SCREENS.MUSIC,
     label: 'Music',
-    caption: 'lagu untuk kita',
+    caption: 'lagu nya bagus hehe',
     icon: Music,
   },
   {
     id: SCREENS.MEMORIES,
     label: 'Memories',
-    caption: 'foto dan video kita',
+    caption: 'sedikit kenang kenangan',
     icon: Camera,
   },
   {
     id: SCREENS.KATA,
-    label: 'Kata-kata',
-    caption: 'pesan untukmu',
+    label: 'Kata-kata hari ini',
+    caption: 'mode serius ni yee',
     icon: MessageCircle,
   },
 ]
@@ -46,7 +46,7 @@ function Home({ onReopen, onNavigate }) {
       </div>
 
       <div className="screen-home">
-        <p className="screen-home__eyebrow">Ayu</p>
+        <p className="screen-home__eyebrow">Plincess Ceces</p>
 
         <div className="screen-home__photo-wrap">
           <MediaPhoto
@@ -61,9 +61,9 @@ function Home({ onReopen, onNavigate }) {
         </div>
 
         <h1 className="screen-home__title">Happy Anniversary</h1>
-        <p className="screen-home__subtitle">1 Tahun Bersama</p>
+        <p className="screen-home__subtitle">1 Tahun ni Ayy</p>
         <p className="screen-home__message">
-          Setahun berlalu, dan aku masih memilih kamu di setiap harinya.
+          Setahun berlalu, dan aku masih memilih kamu di setiap harinya. CIELAH
         </p>
       </div>
 
@@ -103,7 +103,7 @@ function Home({ onReopen, onNavigate }) {
         aria-label="Tutup aplikasi dan kembali ke amplop"
       >
         <Mail size={16} strokeWidth={2.2} aria-hidden="true" />
-        Tutup dan kembali ke amplop
+        Tutup dan kembali ke Laptop
       </button>
     </section>
   )

@@ -8,14 +8,14 @@ function KataKata() {
         <Tulip variant="xs" flip tilt="right" className="screen-kata__tulip screen-kata__tulip--br" />
       </div>
 
-      <span className="screen-label">Kata-kata</span>
+      <span className="screen-label">Kata-kata Hari ini</span>
 
       <div className="screen-kata__card">
         <span className="screen-kata__seal" aria-hidden="true">
           &hearts;
         </span>
 
-        <h2 className="screen-kata__salutation">Untuk Ayu</h2>
+        <h2 className="screen-kata__salutation">Untuk Cantikku</h2>
 
         <p className="screen-kata__text">
           Satu tahun sudah kita lalui bersama. Terima kasih sudah menjadi

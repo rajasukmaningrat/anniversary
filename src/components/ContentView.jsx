@@ -32,7 +32,7 @@ function ContentView({ screen = SCREENS.HOME, onNavigate, onReopen }) {
             <span>Kembali</span>
           </button>
         )}
-        <span className="app-header__name">cayang</span>
+        <span className="app-header__name">cantikku</span>
       </header>
       <main className="app-main">
         <div className="app-screen-wrap" key={screen}>
