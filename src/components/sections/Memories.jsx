@@ -1,17 +1,39 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MediaPhoto from '../MediaPhoto'
 import Tulip from '../Tulip'
-import { MEMORIES_IMAGES, TOGETHER_IMAGES } from 'virtual:cayang-media'
+import { MEMORIES_IMAGES, MEMORY_VIDEOS } from 'virtual:cayang-media'
 
-const MEMORY_VIDEOS = [
-  { src: '/videos/vidio-01.mp4', caption: 'sebuah kenangan' },
-  { src: '/videos/vidio-02.mp4', caption: 'momen kecil kita' },
-  { src: '/videos/vidio-03.mp4', caption: 'yang tak mau kulupakan' },
+const CAPTIONS = [
+  'sebuah kenangan',
+  'momen kecil kita',
+  'yang tak mau kulupakan',
 ]
 
 function MemoryVideo({ media }) {
   const [ratio, setRatio] = useState(null)
   const [failed, setFailed] = useState(false)
+  const videoRef = useRef(null)
+
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target
+          if (entry.isIntersecting) {
+            el.play().catch(() => {})
+          } else {
+            el.pause()
+          }
+        })
+      },
+      { threshold: 0.2 },
+    )
+    observer.observe(video)
+    return () => observer.disconnect()
+  }, [])
 
   if (failed) {
     return (
@@ -36,9 +58,12 @@ function MemoryVideo({ media }) {
       style={ratio ? { aspectRatio: `${ratio.w} / ${ratio.h}` } : undefined}
     >
       <video
+        ref={videoRef}
         className="screen-memory__video"
         src={media.src}
-        controls
+        autoPlay
+        muted
+        loop
         playsInline
         preload="metadata"
         aria-label="Video kenangan bersama Ayu"
@@ -72,8 +97,11 @@ function Memories() {
       </p>
 
       <div className="screen-memory__wall">
-        {MEMORY_VIDEOS.map((media) => (
-          <MemoryVideo key={media.src} media={media} />
+        {MEMORY_VIDEOS.map((src, index) => (
+          <MemoryVideo
+            key={src}
+            media={{ src, caption: CAPTIONS[index % CAPTIONS.length] }}
+          />
         ))}
         {MEMORIES_IMAGES.map((src, index) => (
           <figure
@@ -84,19 +112,6 @@ function Memories() {
               className="screen-memory__img"
               src={src}
               alt="Kenangan bersama Ayu"
-              mark="♡"
-            />
-          </figure>
-        ))}
-        {TOGETHER_IMAGES.map((src, index) => (
-          <figure
-            key={src}
-            className={`screen-memory__tile screen-memory__tile--photo screen-memory__tile--t${(index + 1) % 3}`}
-          >
-            <MediaPhoto
-              className="screen-memory__img"
-              src={src}
-              alt="Foto bersama Ayu"
               mark="♡"
             />
           </figure>
