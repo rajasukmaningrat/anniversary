@@ -15,7 +15,6 @@ const GALLERIES = {
 
 const VIRTUAL_MEDIA_ID = 'virtual:cayang-media'
 const RESOLVED_MEDIA_ID = '\0' + VIRTUAL_MEDIA_ID
-const MEDIA_COLLECTIONS = Object.create(null)
 
 function scanDirectory(dir, matcher) {
   const absoluteDir = resolve(PROJECT_ROOT, dir)
@@ -44,17 +43,10 @@ function cayangMediaPlugin() {
     load(id) {
       if (id !== RESOLVED_MEDIA_ID) return
 
-      MEDIA_COLLECTIONS.ayu =
-        MEDIA_COLLECTIONS.ayu || scanDirectory(GALLERIES.ayu, IMAGE_EXT)
-      MEDIA_COLLECTIONS.memories =
-        MEDIA_COLLECTIONS.memories || scanDirectory(GALLERIES.memories, IMAGE_EXT)
-      MEDIA_COLLECTIONS.memoryVideos =
-        MEDIA_COLLECTIONS.memoryVideos || scanDirectory(GALLERIES.memories, VIDEO_EXT)
-
       return [
-        `export const AYU_IMAGES = ${JSON.stringify(MEDIA_COLLECTIONS.ayu)}`,
-        `export const MEMORIES_IMAGES = ${JSON.stringify(MEDIA_COLLECTIONS.memories)}`,
-        `export const MEMORY_VIDEOS = ${JSON.stringify(MEDIA_COLLECTIONS.memoryVideos)}`,
+        `export const AYU_IMAGES = ${JSON.stringify(scanDirectory(GALLERIES.ayu, IMAGE_EXT))}`,
+        `export const MEMORIES_IMAGES = ${JSON.stringify(scanDirectory(GALLERIES.memories, IMAGE_EXT))}`,
+        `export const MEMORY_VIDEOS = ${JSON.stringify(scanDirectory(GALLERIES.memories, VIDEO_EXT))}`,
       ].join('\n')
     },
   }

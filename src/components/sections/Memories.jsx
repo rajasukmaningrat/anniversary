@@ -10,29 +10,21 @@ const CAPTIONS = [
 ]
 
 function MemoryVideo({ media }) {
+  const videoRef = useRef(null)
   const [ratio, setRatio] = useState(null)
   const [failed, setFailed] = useState(false)
-  const videoRef = useRef(null)
 
   useEffect(() => {
     const video = videoRef.current
     if (!video) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const el = entry.target
-          if (entry.isIntersecting) {
-            el.play().catch(() => {})
-          } else {
-            el.pause()
-          }
-        })
-      },
-      { threshold: 0.2 },
-    )
-    observer.observe(video)
-    return () => observer.disconnect()
+    video.muted = true
+    const playNow = () => video.play().catch(() => {})
+    playNow()
+    video.addEventListener('loadeddata', playNow, { once: true })
+    return () => {
+      video.removeEventListener('loadeddata', playNow)
+      video.pause()
+    }
   }, [])
 
   if (failed) {
@@ -67,9 +59,13 @@ function MemoryVideo({ media }) {
         playsInline
         preload="metadata"
         aria-label="Video kenangan bersama Ayu"
-        onError={() => setFailed(true)}
+        onError={(event) => {
+          console.warn('Memories video gagal dimuat:', media.src, event)
+          setFailed(true)
+        }}
         onLoadedMetadata={(event) => {
           const video = event.currentTarget
+          video.muted = true
           if (video.videoWidth && video.videoHeight) {
             setRatio({ w: video.videoWidth, h: video.videoHeight })
           }

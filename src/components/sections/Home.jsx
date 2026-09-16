@@ -9,12 +9,6 @@ import {
 import MediaPhoto from '../MediaPhoto'
 import Tulip from '../Tulip'
 import { SCREENS } from '../../screens'
-import { AYU_IMAGES } from 'virtual:cayang-media'
-
-const HERO_PHOTO =
-  AYU_IMAGES.find((src) => src.includes('ayu-opening')) ||
-  AYU_IMAGES[0] ||
-  '/asset/opening/ayu-opening.jpg'
 
 const MENU = [
   {
@@ -57,9 +51,10 @@ function Home({ onReopen, onNavigate }) {
         <div className="screen-home__photo-wrap">
           <MediaPhoto
             className="screen-home__photo"
-            src="/images/opening/ayu-opening.jpg"
+            src="/asset/opening/ayu-opening.jpg"
             alt="Foto Syarifah Ayu Bilqis"
             mark="A"
+            priority
           />
           <span className="screen-home__photo-stamp" aria-hidden="true">
             &hearts;

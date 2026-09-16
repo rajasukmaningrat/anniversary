@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-function MediaPhoto({ src, alt, className = '', mark = '♡' }) {
+function MediaPhoto({ src, alt, className = '', mark = '♡', priority = false }) {
   const [failed, setFailed] = useState(false)
 
   if (failed) {
@@ -22,7 +22,9 @@ function MediaPhoto({ src, alt, className = '', mark = '♡' }) {
       className={className}
       src={src}
       alt={alt}
-      loading="lazy"
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      fetchPriority={priority ? 'high' : 'auto'}
       onError={() => setFailed(true)}
     />
   )
