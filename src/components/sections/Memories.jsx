@@ -87,9 +87,14 @@ function Memories() {
       </div>
 
       <span className="screen-label">Memories</span>
-      <h2 className="screen-memory__heading">Kenangan yang ingin aku simpan</h2>
+      <h2 className="screen-memory__heading">- Seperti kata pepatah -</h2>
       <p className="screen-memory__lead">
-        Beberapa momen kecil yang selalu punya tempat sendiri.
+        "Setiap momen adalah hadiah, terimalah dengan penuh rasa syukur."
+        Jadi ayuk kita syukuri dan ingat
+      </p>
+
+      <p className="screen-memory__lead">
+        - Jadi ayuk kita syukuri dan Ingat selalau -
       </p>
 
       <div className="screen-memory__wall">

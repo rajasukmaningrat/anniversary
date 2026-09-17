@@ -32,17 +32,16 @@ function AboutHer() {
 
       <div className="screen-about__text">
         <p className="screen-about__p">
-          Teman sejak kecil. Dari luar dia terlihat kuat dan berani,
-          Seorang Anak perempuan yang cantik yang aku temui bukan dari sebuah kebetulan tapi dari sebuah keberanian CIAH BERANI GAK TU 
-          Ya bayangin aja gess seorang syarifah ayu bilqis dia cantik pinter berkarisma dan CUEK dapet saya gess bocah yang masih bingung 
-          dengan dirinya 
-          kalau aku mau mendefinisasikan dia yaa DIA PACALKU hehehehehe
+          Sedikit cerita tentang syalipah, Mungkin kebanykan orang yang kenal ceces berfikir ceceslear itu orangnya serius,cuek,judes,atau mungkin galak
+          Tapi buat aku NOPE. Aku pun di awal ketemu dia setelah dia pulang dari pondok pun juga berpikir gitu,
+          Tapi ternyata semua perasangka ku salah semua, Ternyata dia just a 19 year old kid like most teenagers that age,
+          Yap aku pun tahunya itupun setelah menjadi salah satu momen kecil yang ada di hidupnya (JADI PACALNYA HEHEHEEHEHEHEHEEH)
         </p>
         <p className="screen-about__p">
-          Buatku dia bukan cuma kekasih — juga teman, supporter pertama,
-          dan sosok yang selalu ada.
-          Bahkan selalu menjadi yang pertama ketika aku lagi down yapp dia yang sellau ada
-          SABARR SABARR KATA KATA SERIUSNYA NANTII SABAR YAAKK 
+          Setelah akhirnya aku merusuhi Hidupnya yang damai Yap i know NOW dia itu just a kid yang keras dengan dirinya sendiri 
+          Kalian kalau mau tau yaaa CICIS ini tu yallah baik,pinter,cantik,pengertian,CENGENG,selalau menjadiakn aku perioritas.
+          Kalau kalian bertanya seperti apa sih ceces di mataku 
+          YAPP aku akan jawab dengan lantang (DIA CANRIKKU PRINCESSKU MY LOVE MY EVERYTHING))
         </p>
       </div>
 
