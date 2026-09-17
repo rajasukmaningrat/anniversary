@@ -90,7 +90,6 @@ function Memories() {
       <h2 className="screen-memory__heading">- Seperti kata pepatah -</h2>
       <p className="screen-memory__lead">
         "Setiap momen adalah hadiah, terimalah dengan penuh rasa syukur."
-        Jadi ayuk kita syukuri dan ingat
       </p>
 
       <p className="screen-memory__lead">
